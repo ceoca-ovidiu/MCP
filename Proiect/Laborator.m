@@ -30,10 +30,10 @@ clc; close all;
 figure; plot(t,var10,t,var12,'LineWidth',1.5); grid; title('Hf1'); legend('var10','var12');
 
 Kf = 1;
-u_sat = 2261;
-t_int = 254; % [sec] 20:06:32 -> 20:10:46
-y_sat = 621;
-y_1 = 74;
+u_sat = 1070-365;
+t_int = 88; % [sec] 20:07:00 -> 20:08:28
+y_sat = 204;
+y_1 = 86.3;
 
 Ti = (Kf*u_sat*t_int)/(y_sat-y_1)
 
@@ -55,8 +55,8 @@ plot(t,var10,t,var12,t,y1,'LineWidth',1.5); grid; legend('Setpoint','Raw','Ident
 clc; close all;
 figure; plot(t,var8,t,var10,'LineWidth',1.5); grid; title('Hf2'); hold on;
 
-yst = 1074;
-y0 = 0;
+yst = 1070;
+y0 = 365;
 ust = 50;
 u0 = 0;
 
@@ -66,7 +66,7 @@ y63 = y0 + 0.632*(yst-y0);
 
 plot(t,y63*ones(size(t))); hold on;
 
-Tf2 = 32; % 20:06:32 - 20:07:04 [sec]
+Tf2 = 8; % 20:06:32 - 20:07:04 [sec]
 
 Hf2 = tf(Kf2,[Tf2 1])
 
@@ -92,6 +92,13 @@ Hc2 = tf(15,1);
 Hd2 = series(Hc2, Hf2);
 H02 = feedback(Hd2,1);
 step(H02); grid; hold on;
+
+%%
+clc; close all;
+
+Hd = tf(1,[2*Tsum^2 2*Tsum 0]);
+
+
 
 %% Regulator Hf1 (integrator) (G-T) (Merge mai ok modulul)
 clc; close all;
